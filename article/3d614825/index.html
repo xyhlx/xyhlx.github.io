@@ -1,0 +1,742 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="https://www.helloimg.com/images/2023/08/16/oSX5EE.png">
+  <link rel="icon" href="https://www.helloimg.com/images/2023/08/16/oSX5EE.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="徐宇欢">
+  <meta name="keywords" content="徐宇欢">
+  
+    <meta name="description" content="HashMapHashMap概念HashMap是基于哈希表的Map接口的非同步实现。HashMap实际上是一个“链表散列”的数据结构，即数组和链表的结合体。数组被分为一个个桶（bucket），每个桶存储有一个或多个Entry对象，每个Entry对象包含三部分key（键）、value（值），next(指向下一个Entry），通过哈希值决定了Entry对象在这个数组的寻址；哈希值相同的Entry对象（">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HashMap">
+<meta property="og:url" content="https://xuyuhuan.com/article/3d614825/index.html">
+<meta property="og:site_name" content="Xu Yuhuan&#39;s Blog">
+<meta property="og:description" content="HashMapHashMap概念HashMap是基于哈希表的Map接口的非同步实现。HashMap实际上是一个“链表散列”的数据结构，即数组和链表的结合体。数组被分为一个个桶（bucket），每个桶存储有一个或多个Entry对象，每个Entry对象包含三部分key（键）、value（值），next(指向下一个Entry），通过哈希值决定了Entry对象在这个数组的寻址；哈希值相同的Entry对象（">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.helloimg.com/images/2023/08/16/oS3bHM.png">
+<meta property="article:published_time" content="2022-02-17T12:24:39.000Z">
+<meta property="article:modified_time" content="2023-08-17T09:45:29.940Z">
+<meta property="article:author" content="徐宇欢">
+<meta property="article:tag" content="HashMap">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://www.helloimg.com/images/2023/08/16/oS3bHM.png">
+  
+  
+  
+  <title>HashMap - Xu Yuhuan&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"xuyuhuan.com","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":100,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":true,"trickleSpeed":100}},"code_language":{"enable":true,"default":"JAVA"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"https://www.helloimg.com/images/2023/08/16/oS30am.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"lN6HOZ8wtJlbYxRF4eEoj41h-gzGzoHsz","app_key":"YzBcxlwd5Yre3fdZEISb6InN","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Welcome to my blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://www.helloimg.com/images/2023/08/16/oS3Ij1.webp') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="HashMap"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        徐宇欢
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-02-17 20:24" pubdate>
+          2022年2月17日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          26 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">HashMap</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h1><h2 id="HashMap概念"><a href="#HashMap概念" class="headerlink" title="HashMap概念"></a>HashMap概念</h2><p>HashMap是基于哈希表的Map接口的非同步实现。HashMap实际上是一个“链表散列”的数据结构，即数组和链表的结合体。数组被分为一个个桶（bucket），每个桶存储有一个或多个Entry对象，每个Entry对象包含三部分key（键）、value（值），next(指向下一个Entry），通过哈希值决定了Entry对象在这个数组的寻址；哈希值相同的Entry对象（键值对），则以链表形式存储。如果链表大小超过树形转换的阈（TREEIFY_THRESHOLD&#x3D; 8），链表就会被改造为树形结构。对于HashMap中的每个key，首先通过哈希算法计算出一个哈希值，这个哈希值就代表了在桶里里的编号，而桶本身实际上是用数组来实现的，所以把这个数值模上数组的长度得到它在数组的index，就这样把它放在了数组里。</p>
+<p>再看一下数组、链表的优缺点。</p>
+<p>数组：数组删除、插入性能不佳，寻址性能极优</p>
+<p>链表：链表查询性能不佳，删除、插入性能极优 数组的优缺点取决于它在内存中存储的模式，也就是直接使用顺序存储或链式存储导致的。无论是数组还是链表，都有明显的缺点。</p>
+<p>散列表：散列表是一个根据key来访问value的存储结构，HashMap中实现的散列表是一个链表类型的数组，即数组+链表，用来存储key-value数据对。</p>
+<h2 id="HashMap原理与存储"><a href="#HashMap原理与存储" class="headerlink" title="HashMap原理与存储"></a>HashMap原理与存储</h2><p>hashMap的主干是一个Entry数组。Entry是HashMap的基本组成单元，每一个Entry包含一个key-value键值对。基本原理：先声明一个下标范围比较大的数组来存储元素。另外设计一个哈希函数（也叫做散列函数）来获得每一个元素的Key（关键字）的函数值（即数组下标，hash值）相对应，数组存储的元素是一个Entry类，这个类有三个数据域，key、value（键值对），next(指向下一个Entry)。</p>
+<p>举例：第一个键值对A1进来。通过计算其key的hash得到的index&#x3D;0。存储为:Entry[0] &#x3D; A1。 第二个键值对A2，通过计算其index也等于0， HashMap会将A2.next &#x3D;A1,Entry[0] &#x3D;A2, 第三个键值对 A3,index也等于0,那么A3.next &#x3D; A2,Entry[0] &#x3D;A3；可以看到index&#x3D;0的地方事实上存取了A1,A2,A3三个键值对,它们通过next这个属性链接在一起。这就是桶。对于不同的元素，可能计算出了相同的函数值，这样就产生了“冲突”，这就需要解决冲突，“直接定址”与“解决冲突”是哈希表的两大特点。而HashMap中的链表主要为了解决哈希冲突而存在的，如果定位到的数组位置不含链表（当前entry的next指向null）,那么对于查找，添加等操作很快，仅需一次寻址即可；如果定位到的数组包含链表，对于添加操作，其时间复杂度为O(n)，首先遍历链表，存在即覆盖，否则新增；对于查找操作来讲，仍需遍历链表，然后通过key对象的equals方法逐一比对查找。对于性能的影响，HashMap中的链表出现越少越好。</p>
+<h1 id="负载因子与扩容"><a href="#负载因子与扩容" class="headerlink" title="负载因子与扩容"></a>负载因子与扩容</h1><figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs arduino"><span class="hljs-comment">//实际存储的key-value键值对的个数</span><br>transient <span class="hljs-type">int</span> size;<br><span class="hljs-comment">//阈值，当table == &#123;&#125;时，该值为初始容量（初始容量默认为16）；</span><br><span class="hljs-type">int</span> threshold;<br><span class="hljs-comment">//负载因子，代表了table的填充度有多少，默认是0.75</span><br><span class="hljs-keyword">final</span> <span class="hljs-type">float</span> loadFactor;<br></code></pre></td></tr></table></figure>
+
+<p>默认容量：HashMap中数组的长度如果不指定，则默认为16 2的n次幂：HashMap在new的时候可以指定数组长度，但不管如何指定，实际长度一定是2的n次幂（16、32、64、128等），举几个例子，指定长度为17或29，实际长度为32，指定为35、57或63，实际长度为64，以此类推。 扩容：随着散列表存储节点的不断增加，散列表中数组的长度也应该增加，为了保证2的n次幂特性，每次扩容都是当前长度*2， 扩容的方法是，新建一个两倍的数组，然后遍历散列表中的所有节点，重新计算下标放入新数组。 负载因子：由于散列存储下标具有不确定性，在数组即将被占满的时候，后续添加会发生大量冲突，为了避免，需要使数组在即将被占满前就扩容，而不是等待数组被占满。负载因子决定具体何时扩容。其默认值是0.75，可以在调用构造器的时候指定。0.75的意思是，在调用put方法时，算上被put的节点，如果当前数组被占用达到75%则进行扩容。在JDK 1.8进行了优化，红黑树的引入被用于替换链表，上文说到，如果冲突过多，会导致链表过长，降低查询性能，均匀的hash函数能有效的缓解冲突过多，但是并不能完全避免。所以在往链表后追加节点时，如果发现链表长度达到8，就会将链表转为红黑树。</p>
+<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs arcade">final V putVal(int <span class="hljs-built_in">hash</span>, K key, V value, <span class="hljs-built_in">boolean</span> onlyIfAbsent,<br>                   <span class="hljs-built_in">boolean</span> evict) &#123;<br>        Node&lt;K,V&gt;[] <span class="hljs-literal">tab</span>; Node&lt;K,V&gt; p; int n, i;<br>        <span class="hljs-keyword">if</span> ((<span class="hljs-literal">tab</span> = table) == <span class="hljs-literal">null</span> || (n = <span class="hljs-literal">tab</span>.<span class="hljs-built_in">length</span>) == <span class="hljs-number">0</span>)<br>            n = (<span class="hljs-literal">tab</span> = <span class="hljs-built_in">resize</span>()).<span class="hljs-built_in">length</span>;<br>        <span class="hljs-keyword">if</span> ((p = <span class="hljs-literal">tab</span>[i = (n - <span class="hljs-number">1</span>) &amp; <span class="hljs-built_in">hash</span>]) == <span class="hljs-literal">null</span>)<br>            <span class="hljs-literal">tab</span>[i] = newNode(<span class="hljs-built_in">hash</span>, key, value, <span class="hljs-literal">null</span>);<br>        <span class="hljs-keyword">else</span> &#123;<br>            Node&lt;K,V&gt; e; K k;<br>            <span class="hljs-keyword">if</span> (p.<span class="hljs-built_in">hash</span> == <span class="hljs-built_in">hash</span> &amp;&amp;<br>                ((k = p.key) == key || (key != <span class="hljs-literal">null</span> &amp;&amp; key.<span class="hljs-built_in">equals</span>(k))))<br>                e = p;<br>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (p instanceof TreeNode)<br>                e = ((TreeNode&lt;K,V&gt;)p).putTreeVal(this, <span class="hljs-literal">tab</span>, <span class="hljs-built_in">hash</span>, key, value);<br>            <span class="hljs-keyword">else</span> &#123;<br>                <span class="hljs-keyword">for</span> (int binCount = <span class="hljs-number">0</span>; ; ++binCount) &#123;<br>                    <span class="hljs-keyword">if</span> ((e = p.next) == <span class="hljs-literal">null</span>) &#123;<br>                        p.next = newNode(<span class="hljs-built_in">hash</span>, key, value, <span class="hljs-literal">null</span>);<br>                        <span class="hljs-keyword">if</span> (binCount &gt;= TREEIFY_THRESHOLD - <span class="hljs-number">1</span>) <span class="hljs-comment">// -1 for 1st</span><br>                            treeifyBin(<span class="hljs-literal">tab</span>, <span class="hljs-built_in">hash</span>);<br>                        <span class="hljs-keyword">break</span>;<br>                    &#125;<br>                    <span class="hljs-keyword">if</span> (e.<span class="hljs-built_in">hash</span> == <span class="hljs-built_in">hash</span> &amp;&amp;<br>                        ((k = e.key) == key || (key != <span class="hljs-literal">null</span> &amp;&amp; key.<span class="hljs-built_in">equals</span>(k))))<br>                        <span class="hljs-keyword">break</span>;<br>                    p = e;<br>                &#125;<br>            &#125;<br>            <span class="hljs-keyword">if</span> (e != <span class="hljs-literal">null</span>) &#123; <span class="hljs-comment">// existing mapping for key</span><br>                V oldValue = e.value;<br>                <span class="hljs-keyword">if</span> (!onlyIfAbsent || oldValue == <span class="hljs-literal">null</span>)<br>                    e.value = value;<br>                afterNodeAccess(e);<br>                <span class="hljs-keyword">return</span> oldValue;<br>            &#125;<br>        &#125;<br>        ++modCount;<br>        <span class="hljs-keyword">if</span> (++size &gt; threshold)<br>            <span class="hljs-built_in">resize</span>();<br>        afterNodeInsertion(evict);<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;<br>    &#125;<br></code></pre></td></tr></table></figure>
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Java/" class="category-chain-item">Java</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/HashMap/" class="print-no-link">#HashMap</a>
+      
+    </div>
+  
+</div>
+
+
+                 <p class="note note-warning">
+<strong>本文作者:  </strong>Xu Yuhuan <br>
+<strong>本文链接: </strong><a href="https://xuyuhuan.com/article/3d614825/">https://xuyuhuan.com/article/3d614825/</a> <br>
+<strong>版权声明: </strong>转载本博客的文章请注明原始出处和作者,谢谢。
+   </p>
+   
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/article/6db70910/" title="羽毛球比赛规则">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">羽毛球比赛规则</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/article/f495a96f/" title="Java异常">
+                        <span class="hidden-mobile">Java异常</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"lN6HOZ8wtJlbYxRF4eEoj41h-gzGzoHsz","appKey":"YzBcxlwd5Yre3fdZEISb6InN","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>框架 Hexo | </span></a> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span> 主题 Fluid </span></a> <div>🚀建站日：2021-11-23</div> <div>总访问量6689次</div> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":true,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/js/xiantiao.js"></script>
+<script src="/js/love.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":150,"height":null},"mobile":{"show":false},"log":false});</script></body>
+</html>

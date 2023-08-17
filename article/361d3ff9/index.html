@@ -1,0 +1,810 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="https://www.helloimg.com/images/2023/08/16/oSX5EE.png">
+  <link rel="icon" href="https://www.helloimg.com/images/2023/08/16/oSX5EE.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="徐宇欢">
+  <meta name="keywords" content="徐宇欢">
+  
+    <meta name="description" content="RedisTemplate的List类型详解List类型  Redis列表是简单的字符串列表，按照插入顺序排序。你可以添加一个元素到列表的头部（左边）或者尾部（右边）。 索引查询  通过索引获取列表中的元素 1redisTemplate.opsForList().index(key, index)  范围查询  获取列表指定范围内的元素(start开始位置, 0是开始位置，end 结束位置, -1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RedisTemplate的List类型详解">
+<meta property="og:url" content="https://xuyuhuan.com/article/361d3ff9/index.html">
+<meta property="og:site_name" content="Xu Yuhuan&#39;s Blog">
+<meta property="og:description" content="RedisTemplate的List类型详解List类型  Redis列表是简单的字符串列表，按照插入顺序排序。你可以添加一个元素到列表的头部（左边）或者尾部（右边）。 索引查询  通过索引获取列表中的元素 1redisTemplate.opsForList().index(key, index)  范围查询  获取列表指定范围内的元素(start开始位置, 0是开始位置，end 结束位置, -1">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.helloimg.com/images/2023/08/16/oS3D0T.jpg">
+<meta property="article:published_time" content="2023-05-19T12:24:39.000Z">
+<meta property="article:modified_time" content="2023-08-17T09:37:55.110Z">
+<meta property="article:author" content="徐宇欢">
+<meta property="article:tag" content="RedisTemplate">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://www.helloimg.com/images/2023/08/16/oS3D0T.jpg">
+  
+  
+  
+  <title>RedisTemplate的List类型详解 - Xu Yuhuan&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"xuyuhuan.com","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":100,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":true,"trickleSpeed":100}},"code_language":{"enable":true,"default":"JAVA"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"https://www.helloimg.com/images/2023/08/16/oS30am.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"lN6HOZ8wtJlbYxRF4eEoj41h-gzGzoHsz","app_key":"YzBcxlwd5Yre3fdZEISb6InN","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Welcome to my blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://www.helloimg.com/images/2023/08/16/oS3Ij1.webp') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="RedisTemplate的List类型详解"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        徐宇欢
+      </span>
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-05-19 20:24" pubdate>
+          2023年5月19日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          3.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          27 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">RedisTemplate的List类型详解</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="RedisTemplate的List类型详解"><a href="#RedisTemplate的List类型详解" class="headerlink" title="RedisTemplate的List类型详解"></a>RedisTemplate的List类型详解</h1><h2 id="List类型"><a href="#List类型" class="headerlink" title="List类型"></a>List类型</h2><p>  Redis列表是简单的字符串列表，按照插入顺序排序。你可以添加一个元素到列表的头部（左边）或者尾部（右边）。</p>
+<h4 id="索引查询"><a href="#索引查询" class="headerlink" title="索引查询"></a>索引查询</h4><p>  通过索引获取列表中的元素</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">redisTemplate.opsForList().index(key, index)<br></code></pre></td></tr></table></figure>
+
+<h4 id="范围查询"><a href="#范围查询" class="headerlink" title="范围查询"></a>范围查询</h4><p>  获取列表指定范围内的元素(start开始位置, 0是开始位置，end 结束位置, -1返回所有)</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">redisTemplate.<span class="hljs-title function_">opsForList</span>().<span class="hljs-title function_">range</span>(key, start, end)<br></code></pre></td></tr></table></figure>
+
+<h4 id="放在最前面"><a href="#放在最前面" class="headerlink" title="放在最前面"></a>放在最前面</h4><p>  存储在list的头部，添加一个就把它放在最前面的索引处</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">redisTemplate.<span class="hljs-title function_">opsForList</span>().<span class="hljs-title function_">leftPush</span>(key, value)<br></code></pre></td></tr></table></figure>
+
+<h4 id="多值插入"><a href="#多值插入" class="headerlink" title="多值插入"></a>多值插入</h4><p>  把多个值存入List中(value可以是多个值，也可以是一个Collection value)</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">redisTemplate.<span class="hljs-title function_">opsForList</span>().<span class="hljs-title function_">leftPushAll</span>(key, value)<br></code></pre></td></tr></table></figure>
+
+<h4 id="存在插入"><a href="#存在插入" class="headerlink" title="存在插入"></a>存在插入</h4><p>  List存在的时候再加入</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">redisTemplate.<span class="hljs-title function_">opsForList</span>().<span class="hljs-title function_">leftPushIfPresent</span>(key, value)<br></code></pre></td></tr></table></figure>
+
+<h4 id="指定值前插入"><a href="#指定值前插入" class="headerlink" title="指定值前插入"></a>指定值前插入</h4><p>  如果pivot处值存在则在pivot前面添加</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">redisTemplate.<span class="hljs-title function_">opsForList</span>().<span class="hljs-title function_">leftPush</span>(key, pivot, value)<br></code></pre></td></tr></table></figure>
+
+<h4 id="先进先出添加"><a href="#先进先出添加" class="headerlink" title="先进先出添加"></a>先进先出添加</h4><p>  按照先进先出的顺序来添加(value可以是多个值，或者是Collection var2)</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">redisTemplate.<span class="hljs-title function_">opsForList</span>().<span class="hljs-title function_">rightPush</span>(key, value) redisTemplate.<span class="hljs-title function_">opsForList</span>().<span class="hljs-title function_">rightPushAll</span>(key, value)<br></code></pre></td></tr></table></figure>
+
+<h4 id="在指定值后插入"><a href="#在指定值后插入" class="headerlink" title="在指定值后插入"></a>在指定值后插入</h4><p>  在pivot元素的右边添加值</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">redisTemplate.<span class="hljs-title function_">opsForList</span>().<span class="hljs-title function_">rightPush</span>(key, pivot, value)<br></code></pre></td></tr></table></figure>
+
+<h4 id="指定索引值"><a href="#指定索引值" class="headerlink" title="指定索引值"></a>指定索引值</h4><p>  设置指定索引处元素的值</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">redisTemplate.<span class="hljs-title function_">opsForList</span>().<span class="hljs-title function_">set</span>(key, index, value)<br></code></pre></td></tr></table></figure>
+
+<h4 id="移除并获取列表中第一个元素"><a href="#移除并获取列表中第一个元素" class="headerlink" title="移除并获取列表中第一个元素"></a>移除并获取列表中第一个元素</h4><p>  移除并获取列表中第一个元素(如果列表没有元素会阻塞列表直到等待超时或发现可弹出元素为止)</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">redisTemplate.<span class="hljs-title function_">opsForList</span>().<span class="hljs-title function_">leftPop</span>(key) redisTemplate.<span class="hljs-title function_">opsForList</span>().<span class="hljs-title function_">leftPop</span>(key, timeout, unit)<br></code></pre></td></tr></table></figure>
+
+<h4 id="移除并获取列表最后一个元素"><a href="#移除并获取列表最后一个元素" class="headerlink" title="移除并获取列表最后一个元素"></a>移除并获取列表最后一个元素</h4><p>  移除并获取列表最后一个元素</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">redisTemplate.<span class="hljs-title function_">opsForList</span>().<span class="hljs-title function_">rightPop</span>(key) redisTemplate.<span class="hljs-title function_">opsForList</span>().<span class="hljs-title function_">rightPop</span>(key, timeout, unit)<br></code></pre></td></tr></table></figure>
+
+<h4 id="将值放入第一个"><a href="#将值放入第一个" class="headerlink" title="将值放入第一个"></a>将值放入第一个</h4><p>   从一个队列的右边弹出一个元素并将这个元素放入另一个指定队列的最左边</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">redisTemplate.<span class="hljs-title function_">opsForList</span>().<span class="hljs-title function_">rightPopAndLeftPush</span>(sourceKey, destinationKey) redisTemplate.<span class="hljs-title function_">opsForList</span>().<span class="hljs-title function_">rightPopAndLeftPush</span>(sourceKey, destinationKey, timeout, unit)<br></code></pre></td></tr></table></figure>
+
+<h4 id="删除集合中值等于value的元素"><a href="#删除集合中值等于value的元素" class="headerlink" title="删除集合中值等于value的元素"></a>删除集合中值等于value的元素</h4><p>  删除集合中值等于value的元素(index&#x3D;0, 删除所有值等于value的元素; index&gt;0, 从头部开始删除第一个值等于value的元素; index&lt;0, 从尾部开始删除第一个值等于value的元素)</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">redisTemplate.<span class="hljs-title function_">opsForList</span>().<span class="hljs-title function_">remove</span>(key, index, value)<br></code></pre></td></tr></table></figure>
+
+<h4 id="将List列表进行剪裁"><a href="#将List列表进行剪裁" class="headerlink" title="将List列表进行剪裁"></a>将List列表进行剪裁</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">redisTemplate.<span class="hljs-title function_">opsForList</span>().<span class="hljs-title function_">trim</span>(key, start, end)<br></code></pre></td></tr></table></figure>
+
+<h4 id="获取当前key的List列表长度"><a href="#获取当前key的List列表长度" class="headerlink" title="获取当前key的List列表长度"></a>获取当前key的List列表长度</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">redisTemplate.<span class="hljs-title function_">opsForList</span>().<span class="hljs-title function_">size</span>(key)<br></code></pre></td></tr></table></figure>
+
+<h2 id="Set类型"><a href="#Set类型" class="headerlink" title="Set类型"></a>Set类型</h2><p>  Redis 的 Set 是 String 类型的无序集合。集合成员是唯一的，这就意味着集合中不能出现重复的数据。集合对象的编码可以是 intset 或者 hashtable。Redis 中集合是通过哈希表实现的，所以添加，删除，查找的复杂度都是 O(1)。集合中最大的成员数为 232 - 1 (4294967295, 每个集合可存储40多亿个成员)。</p>
+<h4 id="添加元素"><a href="#添加元素" class="headerlink" title="添加元素"></a>添加元素</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">redisTemplate.<span class="hljs-title function_">opsForSet</span>().<span class="hljs-title function_">add</span>(key, values)<br></code></pre></td></tr></table></figure>
+
+<h4 id="移除元素-单个值、多个值"><a href="#移除元素-单个值、多个值" class="headerlink" title="移除元素(单个值、多个值)"></a>移除元素(单个值、多个值)</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">redisTemplate.<span class="hljs-title function_">opsForSet</span>().<span class="hljs-title function_">remove</span>(key, values)<br></code></pre></td></tr></table></figure>
+
+<h4 id="删除并且返回一个随机的元素"><a href="#删除并且返回一个随机的元素" class="headerlink" title="删除并且返回一个随机的元素"></a>删除并且返回一个随机的元素</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">redisTemplate.<span class="hljs-title function_">opsForSet</span>().<span class="hljs-title function_">pop</span>(key)<br></code></pre></td></tr></table></figure>
+
+<h4 id="获取集合的大小"><a href="#获取集合的大小" class="headerlink" title="获取集合的大小"></a>获取集合的大小</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">redisTemplate.<span class="hljs-title function_">opsForSet</span>().<span class="hljs-title function_">size</span>(key)<br></code></pre></td></tr></table></figure>
+
+<h4 id="判断集合是否包含value"><a href="#判断集合是否包含value" class="headerlink" title="判断集合是否包含value"></a>判断集合是否包含value</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">redisTemplate.<span class="hljs-title function_">opsForSet</span>().<span class="hljs-title function_">isMember</span>(key, value)<br></code></pre></td></tr></table></figure>
+
+<h4 id="获取两个集合的交集-key对应的无序集合与otherKey对应的无序集合求交集"><a href="#获取两个集合的交集-key对应的无序集合与otherKey对应的无序集合求交集" class="headerlink" title="获取两个集合的交集(key对应的无序集合与otherKey对应的无序集合求交集)"></a>获取两个集合的交集(key对应的无序集合与otherKey对应的无序集合求交集)</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">redisTemplate.<span class="hljs-title function_">opsForSet</span>().<span class="hljs-title function_">intersect</span>(key, otherKey)<br></code></pre></td></tr></table></figure>
+
+<h4 id="获取多个集合的交集-Collection-var2"><a href="#获取多个集合的交集-Collection-var2" class="headerlink" title="获取多个集合的交集(Collection var2)"></a>获取多个集合的交集(Collection var2)</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">redisTemplate.<span class="hljs-title function_">opsForSet</span>().<span class="hljs-title function_">intersect</span>(key, otherKeys)<br></code></pre></td></tr></table></figure>
+
+<h4 id="key集合与otherKey集合的交集存储到destKey集合中-其中otherKey可以为单个值或者集合"><a href="#key集合与otherKey集合的交集存储到destKey集合中-其中otherKey可以为单个值或者集合" class="headerlink" title="key集合与otherKey集合的交集存储到destKey集合中(其中otherKey可以为单个值或者集合)"></a>key集合与otherKey集合的交集存储到destKey集合中(其中otherKey可以为单个值或者集合)</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">redisTemplate.<span class="hljs-title function_">opsForSet</span>().<span class="hljs-title function_">intersectAndStore</span>(key, otherKey, destKey)<br></code></pre></td></tr></table></figure>
+
+<h4 id="key集合与多个集合的交集存储到destKey无序集合中"><a href="#key集合与多个集合的交集存储到destKey无序集合中" class="headerlink" title="key集合与多个集合的交集存储到destKey无序集合中"></a>key集合与多个集合的交集存储到destKey无序集合中</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">redisTemplate.<span class="hljs-title function_">opsForSet</span>().<span class="hljs-title function_">intersectAndStore</span>(key, otherKeys, destKey)<br></code></pre></td></tr></table></figure>
+
+<h4 id="获取两个或者多个集合的并集-otherKeys可以为单个值或者是集合"><a href="#获取两个或者多个集合的并集-otherKeys可以为单个值或者是集合" class="headerlink" title="获取两个或者多个集合的并集(otherKeys可以为单个值或者是集合)"></a>获取两个或者多个集合的并集(otherKeys可以为单个值或者是集合)</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">redisTemplate.<span class="hljs-title function_">opsForSet</span>().<span class="hljs-title function_">union</span>(key, otherKeys)<br></code></pre></td></tr></table></figure>
+
+<h4 id="key集合与otherKey集合的并集存储到destKey中-otherKeys可以为单个值或者是集合"><a href="#key集合与otherKey集合的并集存储到destKey中-otherKeys可以为单个值或者是集合" class="headerlink" title="key集合与otherKey集合的并集存储到destKey中(otherKeys可以为单个值或者是集合)"></a>key集合与otherKey集合的并集存储到destKey中(otherKeys可以为单个值或者是集合)</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">redisTemplate.<span class="hljs-title function_">opsForSet</span>().<span class="hljs-title function_">unionAndStore</span>(key, otherKey, destKey)<br></code></pre></td></tr></table></figure>
+
+<h4 id="获取两个或者多个集合的差集-otherKeys可以为单个值或者是集合"><a href="#获取两个或者多个集合的差集-otherKeys可以为单个值或者是集合" class="headerlink" title="获取两个或者多个集合的差集(otherKeys可以为单个值或者是集合)"></a>获取两个或者多个集合的差集(otherKeys可以为单个值或者是集合)</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">redisTemplate.<span class="hljs-title function_">opsForSet</span>().<span class="hljs-title function_">difference</span>(key, otherKeys)<br></code></pre></td></tr></table></figure>
+
+<h4 id="差集存储到destKey中-otherKeys可以为单个值或者集合"><a href="#差集存储到destKey中-otherKeys可以为单个值或者集合" class="headerlink" title="差集存储到destKey中(otherKeys可以为单个值或者集合)"></a>差集存储到destKey中(otherKeys可以为单个值或者集合)</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">redisTemplate.<span class="hljs-title function_">opsForSet</span>().<span class="hljs-title function_">differenceAndStore</span>(key, otherKey, destKey)<br></code></pre></td></tr></table></figure>
+
+<h4 id="随机获取集合中的一个元素"><a href="#随机获取集合中的一个元素" class="headerlink" title="随机获取集合中的一个元素"></a>随机获取集合中的一个元素</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">redisTemplate.<span class="hljs-title function_">opsForSet</span>().<span class="hljs-title function_">randomMember</span>(key)<br></code></pre></td></tr></table></figure>
+
+<h4 id="获取集合中的所有元素"><a href="#获取集合中的所有元素" class="headerlink" title="获取集合中的所有元素"></a>获取集合中的所有元素</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">redisTemplate.<span class="hljs-title function_">opsForSet</span>().<span class="hljs-title function_">members</span>(key)<br></code></pre></td></tr></table></figure>
+
+<h4 id="随机获取集合中count个元素"><a href="#随机获取集合中count个元素" class="headerlink" title="随机获取集合中count个元素"></a>随机获取集合中count个元素</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">redisTemplate.<span class="hljs-title function_">opsForSet</span>().<span class="hljs-title function_">randomMembers</span>(key, count)<br></code></pre></td></tr></table></figure>
+
+<h4 id="获取多个key无序集合中的元素（去重），count表示个数"><a href="#获取多个key无序集合中的元素（去重），count表示个数" class="headerlink" title="获取多个key无序集合中的元素（去重），count表示个数"></a>获取多个key无序集合中的元素（去重），count表示个数</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">redisTemplate.<span class="hljs-title function_">opsForSet</span>().<span class="hljs-title function_">distinctRandomMembers</span>(key, count)<br></code></pre></td></tr></table></figure>
+
+<h4 id="遍历set类似于Interator-ScanOptions-NONE为显示所有的"><a href="#遍历set类似于Interator-ScanOptions-NONE为显示所有的" class="headerlink" title="遍历set类似于Interator(ScanOptions.NONE为显示所有的)"></a>遍历set类似于Interator(ScanOptions.NONE为显示所有的)</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">redisTemplate.<span class="hljs-title function_">opsForSet</span>().<span class="hljs-title function_">scan</span>(key, options)<br></code></pre></td></tr></table></figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Redis/" class="category-chain-item">Redis</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/RedisTemplate/" class="print-no-link">#RedisTemplate</a>
+      
+    </div>
+  
+</div>
+
+
+                 <p class="note note-warning">
+<strong>本文作者:  </strong>Xu Yuhuan <br>
+<strong>本文链接: </strong><a href="https://xuyuhuan.com/article/361d3ff9/">https://xuyuhuan.com/article/361d3ff9/</a> <br>
+<strong>版权声明: </strong>转载本博客的文章请注明原始出处和作者,谢谢。
+   </p>
+   
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/article/bae9a0d2/" title="RabbitMQ入门">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">RabbitMQ入门</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/article/72ff45fc/" title="Linux常用命令(Java)">
+                        <span class="hidden-mobile">Linux常用命令(Java)</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"lN6HOZ8wtJlbYxRF4eEoj41h-gzGzoHsz","appKey":"YzBcxlwd5Yre3fdZEISb6InN","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>框架 Hexo | </span></a> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span> 主题 Fluid </span></a> <div>🚀建站日：2021-11-23</div> <div>总访问量6689次</div> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":true,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+  
+<script src="/js/xiantiao.js"></script>
+<script src="/js/love.js"></script>
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"right","width":150,"height":null},"mobile":{"show":false},"log":false});</script></body>
+</html>
