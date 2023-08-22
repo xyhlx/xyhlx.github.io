@@ -155,15 +155,40 @@
       
       <tag>SpringBoot</tag>
       
-      <tag>springmvc</tag>
-      
       <tag>MybatisPlus</tag>
       
       <tag>MySQL</tag>
       
+      <tag>springmvc</tag>
+      
       <tag>React</tag>
       
       <tag>Ant Design Pro</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>application.yml配置Mybatis-plus</title>
+    <link href="/article/a343b1ec/"/>
+    <url>/article/a343b1ec/</url>
+    
+    <content type="html"><![CDATA[<h1 id="application-yml配置Mybatis-plus"><a href="#application-yml配置Mybatis-plus" class="headerlink" title="application.yml配置Mybatis-plus"></a>application.yml配置Mybatis-plus</h1><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">mybatis-plus:</span><br>  <span class="hljs-comment">#xml扫描，多个目录用逗号或者分号分隔（告诉 Mapper 所对应的 XML 文件位置）</span><br>  <span class="hljs-attr">mapper-locations:</span> <span class="hljs-string">classpath*:/mapper/*.xml</span><br>  <span class="hljs-comment"># 配置Mybatis别名扫描包（默认别名为类名）</span><br>  <span class="hljs-attr">type-aliases-package:</span> <span class="hljs-string">com.nchu.pojo</span><br>  <span class="hljs-attr">configuration:</span><br>    <span class="hljs-comment"># 开启驼峰命名（默认打开）</span><br>    <span class="hljs-attr">map-underscore-to-camel-case:</span> <span class="hljs-literal">true</span><br>    <span class="hljs-comment"># 日志</span><br>    <span class="hljs-attr">log-impl:</span> <span class="hljs-string">org.apache.ibatis.logging.stdout.StdOutImpl</span><br>  <span class="hljs-attr">global-config:</span><br>    <span class="hljs-attr">db-config:</span><br>      <span class="hljs-comment">#设置主键策略 ASSIGN_ID-雪花算法 AUTO-自增</span><br>      <span class="hljs-attr">id-type:</span> <span class="hljs-string">AUTO</span><br>      <span class="hljs-comment"># 逻辑未删除值(默认为 0)</span><br>      <span class="hljs-attr">logic-not-delete-value:</span> <span class="hljs-number">0</span><br>      <span class="hljs-comment"># 逻辑已删除值(默认为 1)</span><br>      <span class="hljs-attr">logic-delete-value:</span> <span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>Mybatis-plus</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Mybatis-plus</tag>
       
     </tags>
     
@@ -192,11 +217,11 @@
       
       <tag>SpringBoot</tag>
       
+      <tag>Redis</tag>
+      
       <tag>MybatisPlus</tag>
       
       <tag>MySQL</tag>
-      
-      <tag>Redis</tag>
       
       <tag>Vue</tag>
       
@@ -341,7 +366,7 @@
     <link href="/"/>
     <url>/</url>
     
-    <content type="html"><![CDATA[<h1 id="About-Me"><a href="#About-Me" class="headerlink" title="About Me"></a>About Me</h1><ul><li>后端开发工程师（Java）</li><li>南昌航空大学</li><li>软件工程（24届）</li><li>热爱编程，喜欢接触新技术</li><li>音乐</li><li>羽毛球</li><li>保持生活节奏的平衡</li><li>成功的秘诀在于对目标的专注和持久的努力</li><li>真正的力量来自于内心的善良和慈悲</li></ul><p>在我的博客上，您可以找到关于我的技术博客、生活日常的文章。如果您对我的文章或者我的工作感兴趣，欢迎与我联系，我会非常乐意和您交流。</p><h2 id="记录博客的初衷"><a href="#记录博客的初衷" class="headerlink" title="记录博客的初衷"></a>记录博客的初衷</h2><ul><li>我希望能够在学习过程中记录笔记，以便日后复习和回顾。通过将重要的概念、知识点和关键信息记录下来，我可以更好地巩固所学内容。</li><li>学习过程中，我计划将一些技术教程分享出来，与其他人进行讨论和交流，这样可以帮助我更好地理解教程，并为其他人提供帮助和解答疑惑。</li><li>我希望能够分享一些有价值的开发学习资源，如书籍、教程、博客等，通过这些分享，我希望能够为开发人员提供更多的帮助和支持。</li></ul><h2 id="技术专题"><a href="#技术专题" class="headerlink" title="技术专题"></a>技术专题</h2><ul><li><p>Java基础：Java集合</p></li><li><p>Java并发：Java 并发编程</p></li><li><p>JVM：Java 虚拟机</p></li><li><p>Spring： Web 开发框架</p></li><li><p>Redis：分布式缓存</p></li><li><p>ZooKeeper：分布式系统协作的中间件</p></li><li><p>Kafka：消息队列</p></li><li><p>MySQL：数据库</p></li><li><p>Docker：容器平台</p></li><li><p>Nginx：流量网关，反向代理</p></li><li><p>Linux：Linux 操作系统下，常见问题和操作</p></li><li><p>ElasticSearch：分布式搜索中心 </p></li><li><p>Flume：日志收集组件 </p></li><li><p>Storm：准实时数据处理 </p></li><li><p>Ganglia：系统监控</p></li><li><p>HTTP：网络协议</p></li><li><p>其他</p></li></ul><h2 id="联系方式"><a href="#联系方式" class="headerlink" title="联系方式"></a>联系方式</h2><p>邮箱：<a href="mailto:&#x32;&#54;&#x39;&#51;&#x35;&#54;&#x37;&#52;&#x34;&#48;&#x40;&#113;&#113;&#x2e;&#x63;&#x6f;&#x6d;">&#x32;&#54;&#x39;&#51;&#x35;&#54;&#x37;&#52;&#x34;&#48;&#x40;&#113;&#113;&#x2e;&#x63;&#x6f;&#x6d;</a></p><p>QQ：2693567440 </p><hr><img src="https://www.helloimg.com/images/2023/08/16/oS3zGq.png" alt="Github chart" />]]></content>
+    <content type="html"><![CDATA[<h1 id="About-Me"><a href="#About-Me" class="headerlink" title="About Me"></a>About Me</h1><ul><li>后端开发工程师（Java）</li><li>南昌航空大学</li><li>软件工程（24届）</li><li>热爱编程，喜欢接触新技术</li><li>音乐</li><li>羽毛球</li><li>保持生活节奏的平衡</li><li>成功的秘诀在于对目标的专注和持久的努力</li><li>真正的力量来自于内心的善良和慈悲</li></ul><p>在我的博客上，您可以找到关于我的技术博客、生活日常的文章。如果您对我的文章或者我的工作感兴趣，欢迎与我联系，我会非常乐意和您交流。</p><h2 id="记录博客的初衷"><a href="#记录博客的初衷" class="headerlink" title="记录博客的初衷"></a>记录博客的初衷</h2><ul><li>我希望能够在学习过程中记录笔记，以便日后复习和回顾。通过将重要的概念、知识点和关键信息记录下来，我可以更好地巩固所学内容。</li><li>学习过程中，我计划将一些技术教程分享出来，与其他人进行讨论和交流，这样可以帮助我更好地理解教程，并为其他人提供帮助和解答疑惑。</li><li>我希望能够分享一些有价值的开发学习资源，如书籍、教程、博客等，通过这些分享，我希望能够为开发人员提供更多的帮助和支持。</li></ul><h2 id="技术专题"><a href="#技术专题" class="headerlink" title="技术专题"></a>技术专题</h2><ul><li><p>Java基础：Java集合</p></li><li><p>Java并发：Java 并发编程</p></li><li><p>JVM：Java 虚拟机</p></li><li><p>Spring： Web 开发框架</p></li><li><p>Redis：分布式缓存</p></li><li><p>ZooKeeper：分布式系统协作的中间件</p></li><li><p>Kafka：消息队列</p></li><li><p>MySQL：数据库</p></li><li><p>Docker：容器平台</p></li><li><p>Nginx：流量网关，反向代理</p></li><li><p>Linux：Linux 操作系统下，常见问题和操作</p></li><li><p>ElasticSearch：分布式搜索中心 </p></li><li><p>Flume：日志收集组件 </p></li><li><p>Storm：准实时数据处理 </p></li><li><p>Ganglia：系统监控</p></li><li><p>HTTP：网络协议</p></li><li><p>其他</p></li></ul><h2 id="联系方式"><a href="#联系方式" class="headerlink" title="联系方式"></a>联系方式</h2><p>邮箱：<a href="mailto:&#50;&#x36;&#57;&#51;&#x35;&#x36;&#55;&#x34;&#52;&#48;&#x40;&#113;&#113;&#x2e;&#99;&#111;&#x6d;">&#50;&#x36;&#57;&#51;&#x35;&#x36;&#55;&#x34;&#52;&#48;&#x40;&#113;&#113;&#x2e;&#99;&#111;&#x6d;</a></p><p>QQ：2693567440 </p><hr><img src="https://www.helloimg.com/images/2023/08/16/oS3zGq.png" alt="Github chart" />]]></content>
     
   </entry>
   
