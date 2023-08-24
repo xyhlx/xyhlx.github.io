@@ -18,24 +18,24 @@
   <meta name="author" content="徐宇欢">
   <meta name="keywords" content="徐宇欢">
   
-    <meta name="description" content="HashMapHashMap概念HashMap是基于哈希表的Map接口的非同步实现。HashMap实际上是一个“链表散列”的数据结构，即数组和链表的结合体。数组被分为一个个桶（bucket），每个桶存储有一个或多个Entry对象，每个Entry对象包含三部分key（键）、value（值），next(指向下一个Entry），通过哈希值决定了Entry对象在这个数组的寻址；哈希值相同的Entry对象（">
+    <meta name="description" content="Java快速创建List常用几种方式1、常规操作 new ArrayList&lt;&gt;() 创建 1234List&lt;Integer&gt; list &#x3D; new ArrayList&lt;&gt;();list.add(1);list.add(2);list.add(3);   2、Arrays工具类创建 1List&lt;Integer&gt; list &#x3D; Arrays.asLis">
 <meta property="og:type" content="article">
-<meta property="og:title" content="HashMap">
-<meta property="og:url" content="https://xuyuhuan.com/article/3d614825/index.html">
+<meta property="og:title" content="Java快速创建List常用几种方式">
+<meta property="og:url" content="https://xuyuhuan.com/article/67c58cdf/index.html">
 <meta property="og:site_name" content="Xu Yuhuan&#39;s Blog">
-<meta property="og:description" content="HashMapHashMap概念HashMap是基于哈希表的Map接口的非同步实现。HashMap实际上是一个“链表散列”的数据结构，即数组和链表的结合体。数组被分为一个个桶（bucket），每个桶存储有一个或多个Entry对象，每个Entry对象包含三部分key（键）、value（值），next(指向下一个Entry），通过哈希值决定了Entry对象在这个数组的寻址；哈希值相同的Entry对象（">
+<meta property="og:description" content="Java快速创建List常用几种方式1、常规操作 new ArrayList&lt;&gt;() 创建 1234List&lt;Integer&gt; list &#x3D; new ArrayList&lt;&gt;();list.add(1);list.add(2);list.add(3);   2、Arrays工具类创建 1List&lt;Integer&gt; list &#x3D; Arrays.asLis">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://www.helloimg.com/images/2023/08/16/oS3bHM.png">
-<meta property="article:published_time" content="2022-02-17T12:24:39.000Z">
-<meta property="article:modified_time" content="2023-08-17T09:45:29.940Z">
+<meta property="og:image" content="https://www.helloimg.com/images/2023/08/24/oSuAHA.jpg">
+<meta property="article:published_time" content="2021-12-22T12:24:39.000Z">
+<meta property="article:modified_time" content="2023-08-24T03:22:57.467Z">
 <meta property="article:author" content="徐宇欢">
-<meta property="article:tag" content="HashMap">
+<meta property="article:tag" content="Java集合">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://www.helloimg.com/images/2023/08/16/oS3bHM.png">
+<meta name="twitter:image" content="https://www.helloimg.com/images/2023/08/24/oSuAHA.jpg">
   
   
   
-  <title>HashMap - Xu Yuhuan&#39;s Blog</title>
+  <title>Java快速创建List常用几种方式 - Xu Yuhuan&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -242,7 +242,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="HashMap"></span>
+            <span id="subtitle" data-typed-text="Java快速创建List常用几种方式"></span>
           
         </div>
 
@@ -258,8 +258,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-02-17 20:24" pubdate>
-          2022年2月17日 晚上
+        <time datetime="2021-12-22 20:24" pubdate>
+          2021年12月22日 晚上
         </time>
       </span>
     
@@ -271,7 +271,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          3k 字
+          922 字
         
       </span>
     
@@ -283,7 +283,7 @@
         
         
           <!-- compatible with older versions-->
-          26 分钟
+          8 分钟
         
       </span>
     
@@ -328,22 +328,38 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">HashMap</h1>
+            <h1 id="seo-header">Java快速创建List常用几种方式</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h1><h2 id="HashMap概念"><a href="#HashMap概念" class="headerlink" title="HashMap概念"></a>HashMap概念</h2><p>HashMap是基于哈希表的Map接口的非同步实现。HashMap实际上是一个“链表散列”的数据结构，即数组和链表的结合体。数组被分为一个个桶（bucket），每个桶存储有一个或多个Entry对象，每个Entry对象包含三部分key（键）、value（值），next(指向下一个Entry），通过哈希值决定了Entry对象在这个数组的寻址；哈希值相同的Entry对象（键值对），则以链表形式存储。如果链表大小超过树形转换的阈（TREEIFY_THRESHOLD&#x3D; 8），链表就会被改造为树形结构。对于HashMap中的每个key，首先通过哈希算法计算出一个哈希值，这个哈希值就代表了在桶里里的编号，而桶本身实际上是用数组来实现的，所以把这个数值模上数组的长度得到它在数组的index，就这样把它放在了数组里。</p>
-<p>再看一下数组、链表的优缺点。</p>
-<p>数组：数组删除、插入性能不佳，寻址性能极优</p>
-<p>链表：链表查询性能不佳，删除、插入性能极优 数组的优缺点取决于它在内存中存储的模式，也就是直接使用顺序存储或链式存储导致的。无论是数组还是链表，都有明显的缺点。</p>
-<p>散列表：散列表是一个根据key来访问value的存储结构，HashMap中实现的散列表是一个链表类型的数组，即数组+链表，用来存储key-value数据对。</p>
-<h2 id="HashMap原理与存储"><a href="#HashMap原理与存储" class="headerlink" title="HashMap原理与存储"></a>HashMap原理与存储</h2><p>hashMap的主干是一个Entry数组。Entry是HashMap的基本组成单元，每一个Entry包含一个key-value键值对。基本原理：先声明一个下标范围比较大的数组来存储元素。另外设计一个哈希函数（也叫做散列函数）来获得每一个元素的Key（关键字）的函数值（即数组下标，hash值）相对应，数组存储的元素是一个Entry类，这个类有三个数据域，key、value（键值对），next(指向下一个Entry)。</p>
-<p>举例：第一个键值对A1进来。通过计算其key的hash得到的index&#x3D;0。存储为:Entry[0] &#x3D; A1。 第二个键值对A2，通过计算其index也等于0， HashMap会将A2.next &#x3D;A1,Entry[0] &#x3D;A2, 第三个键值对 A3,index也等于0,那么A3.next &#x3D; A2,Entry[0] &#x3D;A3；可以看到index&#x3D;0的地方事实上存取了A1,A2,A3三个键值对,它们通过next这个属性链接在一起。这就是桶。对于不同的元素，可能计算出了相同的函数值，这样就产生了“冲突”，这就需要解决冲突，“直接定址”与“解决冲突”是哈希表的两大特点。而HashMap中的链表主要为了解决哈希冲突而存在的，如果定位到的数组位置不含链表（当前entry的next指向null）,那么对于查找，添加等操作很快，仅需一次寻址即可；如果定位到的数组包含链表，对于添加操作，其时间复杂度为O(n)，首先遍历链表，存在即覆盖，否则新增；对于查找操作来讲，仍需遍历链表，然后通过key对象的equals方法逐一比对查找。对于性能的影响，HashMap中的链表出现越少越好。</p>
-<h1 id="负载因子与扩容"><a href="#负载因子与扩容" class="headerlink" title="负载因子与扩容"></a>负载因子与扩容</h1><figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs arduino"><span class="hljs-comment">//实际存储的key-value键值对的个数</span><br>transient <span class="hljs-type">int</span> size;<br><span class="hljs-comment">//阈值，当table == &#123;&#125;时，该值为初始容量（初始容量默认为16）；</span><br><span class="hljs-type">int</span> threshold;<br><span class="hljs-comment">//负载因子，代表了table的填充度有多少，默认是0.75</span><br><span class="hljs-keyword">final</span> <span class="hljs-type">float</span> loadFactor;<br></code></pre></td></tr></table></figure>
+                <h1 id="Java快速创建List常用几种方式"><a href="#Java快速创建List常用几种方式" class="headerlink" title="Java快速创建List常用几种方式"></a>Java快速创建List常用几种方式</h1><p>1、常规操作 new ArrayList&lt;&gt;() 创建</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs routeros">List&lt;Integer&gt; list = new ArrayList&lt;&gt;();<br>list.<span class="hljs-built_in">add</span>(1);<br>list.<span class="hljs-built_in">add</span>(2);<br>list.<span class="hljs-built_in">add</span>(3);<br></code></pre></td></tr></table></figure>
 
-<p>默认容量：HashMap中数组的长度如果不指定，则默认为16 2的n次幂：HashMap在new的时候可以指定数组长度，但不管如何指定，实际长度一定是2的n次幂（16、32、64、128等），举几个例子，指定长度为17或29，实际长度为32，指定为35、57或63，实际长度为64，以此类推。 扩容：随着散列表存储节点的不断增加，散列表中数组的长度也应该增加，为了保证2的n次幂特性，每次扩容都是当前长度*2， 扩容的方法是，新建一个两倍的数组，然后遍历散列表中的所有节点，重新计算下标放入新数组。 负载因子：由于散列存储下标具有不确定性，在数组即将被占满的时候，后续添加会发生大量冲突，为了避免，需要使数组在即将被占满前就扩容，而不是等待数组被占满。负载因子决定具体何时扩容。其默认值是0.75，可以在调用构造器的时候指定。0.75的意思是，在调用put方法时，算上被put的节点，如果当前数组被占用达到75%则进行扩容。在JDK 1.8进行了优化，红黑树的引入被用于替换链表，上文说到，如果冲突过多，会导致链表过长，降低查询性能，均匀的hash函数能有效的缓解冲突过多，但是并不能完全避免。所以在往链表后追加节点时，如果发现链表长度达到8，就会将链表转为红黑树。</p>
-<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs arcade">final V putVal(int <span class="hljs-built_in">hash</span>, K key, V value, <span class="hljs-built_in">boolean</span> onlyIfAbsent,<br>                   <span class="hljs-built_in">boolean</span> evict) &#123;<br>        Node&lt;K,V&gt;[] <span class="hljs-literal">tab</span>; Node&lt;K,V&gt; p; int n, i;<br>        <span class="hljs-keyword">if</span> ((<span class="hljs-literal">tab</span> = table) == <span class="hljs-literal">null</span> || (n = <span class="hljs-literal">tab</span>.<span class="hljs-built_in">length</span>) == <span class="hljs-number">0</span>)<br>            n = (<span class="hljs-literal">tab</span> = <span class="hljs-built_in">resize</span>()).<span class="hljs-built_in">length</span>;<br>        <span class="hljs-keyword">if</span> ((p = <span class="hljs-literal">tab</span>[i = (n - <span class="hljs-number">1</span>) &amp; <span class="hljs-built_in">hash</span>]) == <span class="hljs-literal">null</span>)<br>            <span class="hljs-literal">tab</span>[i] = newNode(<span class="hljs-built_in">hash</span>, key, value, <span class="hljs-literal">null</span>);<br>        <span class="hljs-keyword">else</span> &#123;<br>            Node&lt;K,V&gt; e; K k;<br>            <span class="hljs-keyword">if</span> (p.<span class="hljs-built_in">hash</span> == <span class="hljs-built_in">hash</span> &amp;&amp;<br>                ((k = p.key) == key || (key != <span class="hljs-literal">null</span> &amp;&amp; key.<span class="hljs-built_in">equals</span>(k))))<br>                e = p;<br>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (p instanceof TreeNode)<br>                e = ((TreeNode&lt;K,V&gt;)p).putTreeVal(this, <span class="hljs-literal">tab</span>, <span class="hljs-built_in">hash</span>, key, value);<br>            <span class="hljs-keyword">else</span> &#123;<br>                <span class="hljs-keyword">for</span> (int binCount = <span class="hljs-number">0</span>; ; ++binCount) &#123;<br>                    <span class="hljs-keyword">if</span> ((e = p.next) == <span class="hljs-literal">null</span>) &#123;<br>                        p.next = newNode(<span class="hljs-built_in">hash</span>, key, value, <span class="hljs-literal">null</span>);<br>                        <span class="hljs-keyword">if</span> (binCount &gt;= TREEIFY_THRESHOLD - <span class="hljs-number">1</span>) <span class="hljs-comment">// -1 for 1st</span><br>                            treeifyBin(<span class="hljs-literal">tab</span>, <span class="hljs-built_in">hash</span>);<br>                        <span class="hljs-keyword">break</span>;<br>                    &#125;<br>                    <span class="hljs-keyword">if</span> (e.<span class="hljs-built_in">hash</span> == <span class="hljs-built_in">hash</span> &amp;&amp;<br>                        ((k = e.key) == key || (key != <span class="hljs-literal">null</span> &amp;&amp; key.<span class="hljs-built_in">equals</span>(k))))<br>                        <span class="hljs-keyword">break</span>;<br>                    p = e;<br>                &#125;<br>            &#125;<br>            <span class="hljs-keyword">if</span> (e != <span class="hljs-literal">null</span>) &#123; <span class="hljs-comment">// existing mapping for key</span><br>                V oldValue = e.value;<br>                <span class="hljs-keyword">if</span> (!onlyIfAbsent || oldValue == <span class="hljs-literal">null</span>)<br>                    e.value = value;<br>                afterNodeAccess(e);<br>                <span class="hljs-keyword">return</span> oldValue;<br>            &#125;<br>        &#125;<br>        ++modCount;<br>        <span class="hljs-keyword">if</span> (++size &gt; threshold)<br>            <span class="hljs-built_in">resize</span>();<br>        afterNodeInsertion(evict);<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;<br>    &#125;<br></code></pre></td></tr></table></figure>
+<p> 2、Arrays工具类创建</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">List</span>&lt;Integer&gt; list = Arrays.asList(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>);<br></code></pre></td></tr></table></figure>
+
+<p>Arrays.asList() 方法是 Arrays 的静态方法。这种方式构造的 List 是固定长度的，如果调用 add 方法增加新的元素时会报异常 java.lang.UnsupportedOperationException。这种方式仅适用于构造静态不变的 List。</p>
+<p>如果想要改变可以通过 ArrayList进行包装成动态。</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">List</span>&lt;Integer&gt; list = Arrays.asList(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>);<br><span class="hljs-attribute">list</span> = new ArrayList&lt;&gt;(list);<br><span class="hljs-attribute">list</span>.add(<span class="hljs-number">4</span>);<br></code></pre></td></tr></table></figure>
+
+<p>3、Stream创建</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">List&lt;Integer&gt; <span class="hljs-built_in">list</span> = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Stream</span>.</span></span><span class="hljs-keyword">of</span>(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>).collect(<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Collectors</span>.</span></span><span class="hljs-keyword">to</span><span class="hljs-constructor">List()</span>);<br></code></pre></td></tr></table></figure>
+
+<p>4、匿名内部类创建</p>
+<figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs handlebars"><span class="language-xml">List<span class="hljs-tag">&lt;<span class="hljs-name">Integer</span>&gt;</span> list= new ArrayList() </span><span class="hljs-template-variable">&#123;&#123;</span><br><span class="hljs-template-variable">    <span class="hljs-name">add</span>(<span class="hljs-name">1</span>);</span><br><span class="hljs-template-variable">    add(<span class="hljs-name">2</span>);</span><br><span class="hljs-template-variable">    add(<span class="hljs-name">3</span>);</span><br><span class="hljs-template-variable">&#125;&#125;</span><span class="language-xml">;</span><br></code></pre></td></tr></table></figure>
+
+<p>5、Hutool工具类创建</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">List</span>&lt;Integer&gt; list = CollectionUtil.newArrayList(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>);<br></code></pre></td></tr></table></figure>
+
+<p>6、guava工具类创建</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">import</span> com.google.common.collect.Lists;<br><span class="hljs-attribute">List</span>&lt;Integer&gt; list = Lists.newArrayList(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>);<br></code></pre></td></tr></table></figure>
+
+<p>7、JDK9 引入的Lists创建</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">List</span>&lt;Integer&gt; list = Lists.newArrayList(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>);<br></code></pre></td></tr></table></figure>
+
+<p>8、JDK9引入 List.of (不可变)</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">List</span>&lt;Integer&gt; list = List.of(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>);<br></code></pre></td></tr></table></figure>
 
 
                 
@@ -363,7 +379,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/Java/" class="category-chain-item">Java</a>
+  <a href="/categories/Java%E5%9F%BA%E7%A1%80/" class="category-chain-item">Java基础</a>
   
   
 
@@ -378,7 +394,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/HashMap/" class="print-no-link">#HashMap</a>
+        <a href="/tags/Java%E9%9B%86%E5%90%88/" class="print-no-link">#Java集合</a>
       
     </div>
   
@@ -387,7 +403,7 @@
 
                  <p class="note note-warning">
 <strong>本文作者:  </strong>Xu Yuhuan <br>
-<strong>本文链接: </strong><a href="https://xuyuhuan.com/article/3d614825/">https://xuyuhuan.com/article/3d614825/</a> <br>
+<strong>本文链接: </strong><a href="https://xuyuhuan.com/article/67c58cdf/">https://xuyuhuan.com/article/67c58cdf/</a> <br>
 <strong>版权声明: </strong>转载本博客的文章请注明原始出处和作者,谢谢。
    </p>
    
@@ -397,9 +413,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/article/6db70910/" title="羽毛球比赛规则">
+                      <a href="/article/3d614825/" title="HashMap">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">羽毛球比赛规则</span>
+                        <span class="hidden-mobile">HashMap</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -407,8 +423,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/article/67c58cdf/" title="Java快速创建List常用几种方式">
-                        <span class="hidden-mobile">Java快速创建List常用几种方式</span>
+                      <a href="/article/4a659efd/" title="Java克隆">
+                        <span class="hidden-mobile">Java克隆</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
