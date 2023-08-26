@@ -18,24 +18,24 @@
   <meta name="author" content="徐宇欢">
   <meta name="keywords" content="徐宇欢">
   
-    <meta name="description" content="HashMapHashMap概念HashMap是基于哈希表的Map接口的非同步实现。HashMap实际上是一个“链表散列”的数据结构，即数组和链表的结合体。数组被分为一个个桶（bucket），每个桶存储有一个或多个Entry对象，每个Entry对象包含三部分key（键）、value（值），next(指向下一个Entry），通过哈希值决定了Entry对象在这个数组的寻址；哈希值相同的Entry对象（">
+    <meta name="description" content="Java枚举Java枚举（Enumeration）是一种特殊的数据类型，用于定义一组固定的常量。枚举提供了一种更加简洁、安全和可读性强的方式来表示一组相关的常量。12345678910111213141516171819202122232425262728293031323334353637383940public enum Student &amp;#123;    STUDENT_ONE(&quot;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="HashMap">
-<meta property="og:url" content="https://xuyuhuan.com/article/3d614825/index.html">
+<meta property="og:title" content="Java枚举">
+<meta property="og:url" content="https://xuyuhuan.com/article/b40c17d7/index.html">
 <meta property="og:site_name" content="Xu Yuhuan&#39;s Blog">
-<meta property="og:description" content="HashMapHashMap概念HashMap是基于哈希表的Map接口的非同步实现。HashMap实际上是一个“链表散列”的数据结构，即数组和链表的结合体。数组被分为一个个桶（bucket），每个桶存储有一个或多个Entry对象，每个Entry对象包含三部分key（键）、value（值），next(指向下一个Entry），通过哈希值决定了Entry对象在这个数组的寻址；哈希值相同的Entry对象（">
+<meta property="og:description" content="Java枚举Java枚举（Enumeration）是一种特殊的数据类型，用于定义一组固定的常量。枚举提供了一种更加简洁、安全和可读性强的方式来表示一组相关的常量。12345678910111213141516171819202122232425262728293031323334353637383940public enum Student &amp;#123;    STUDENT_ONE(&quot;">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://www.helloimg.com/images/2023/08/16/oS3bHM.png">
-<meta property="article:published_time" content="2022-02-17T12:24:39.000Z">
-<meta property="article:modified_time" content="2023-08-17T09:45:29.940Z">
+<meta property="og:image" content="https://www.helloimg.com/images/2023/08/26/oiaFzt.png">
+<meta property="article:published_time" content="2022-02-24T12:24:39.000Z">
+<meta property="article:modified_time" content="2023-08-26T12:10:10.564Z">
 <meta property="article:author" content="徐宇欢">
-<meta property="article:tag" content="HashMap">
+<meta property="article:tag" content="Java枚举">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://www.helloimg.com/images/2023/08/16/oS3bHM.png">
+<meta name="twitter:image" content="https://www.helloimg.com/images/2023/08/26/oiaFzt.png">
   
   
   
-  <title>HashMap - Xu Yuhuan&#39;s Blog</title>
+  <title>Java枚举 - Xu Yuhuan&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -242,7 +242,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="HashMap"></span>
+            <span id="subtitle" data-typed-text="Java枚举"></span>
           
         </div>
 
@@ -258,8 +258,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-02-17 20:24" pubdate>
-          2022年2月17日 晚上
+        <time datetime="2022-02-24 20:24" pubdate>
+          2022年2月24日 晚上
         </time>
       </span>
     
@@ -271,7 +271,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          3k 字
+          1.6k 字
         
       </span>
     
@@ -283,7 +283,7 @@
         
         
           <!-- compatible with older versions-->
-          26 分钟
+          14 分钟
         
       </span>
     
@@ -328,22 +328,18 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">HashMap</h1>
+            <h1 id="seo-header">Java枚举</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h1><h2 id="HashMap概念"><a href="#HashMap概念" class="headerlink" title="HashMap概念"></a>HashMap概念</h2><p>HashMap是基于哈希表的Map接口的非同步实现。HashMap实际上是一个“链表散列”的数据结构，即数组和链表的结合体。数组被分为一个个桶（bucket），每个桶存储有一个或多个Entry对象，每个Entry对象包含三部分key（键）、value（值），next(指向下一个Entry），通过哈希值决定了Entry对象在这个数组的寻址；哈希值相同的Entry对象（键值对），则以链表形式存储。如果链表大小超过树形转换的阈（TREEIFY_THRESHOLD&#x3D; 8），链表就会被改造为树形结构。对于HashMap中的每个key，首先通过哈希算法计算出一个哈希值，这个哈希值就代表了在桶里里的编号，而桶本身实际上是用数组来实现的，所以把这个数值模上数组的长度得到它在数组的index，就这样把它放在了数组里。</p>
-<p>再看一下数组、链表的优缺点。</p>
-<p>数组：数组删除、插入性能不佳，寻址性能极优</p>
-<p>链表：链表查询性能不佳，删除、插入性能极优 数组的优缺点取决于它在内存中存储的模式，也就是直接使用顺序存储或链式存储导致的。无论是数组还是链表，都有明显的缺点。</p>
-<p>散列表：散列表是一个根据key来访问value的存储结构，HashMap中实现的散列表是一个链表类型的数组，即数组+链表，用来存储key-value数据对。</p>
-<h2 id="HashMap原理与存储"><a href="#HashMap原理与存储" class="headerlink" title="HashMap原理与存储"></a>HashMap原理与存储</h2><p>hashMap的主干是一个Entry数组。Entry是HashMap的基本组成单元，每一个Entry包含一个key-value键值对。基本原理：先声明一个下标范围比较大的数组来存储元素。另外设计一个哈希函数（也叫做散列函数）来获得每一个元素的Key（关键字）的函数值（即数组下标，hash值）相对应，数组存储的元素是一个Entry类，这个类有三个数据域，key、value（键值对），next(指向下一个Entry)。</p>
-<p>举例：第一个键值对A1进来。通过计算其key的hash得到的index&#x3D;0。存储为:Entry[0] &#x3D; A1。 第二个键值对A2，通过计算其index也等于0， HashMap会将A2.next &#x3D;A1,Entry[0] &#x3D;A2, 第三个键值对 A3,index也等于0,那么A3.next &#x3D; A2,Entry[0] &#x3D;A3；可以看到index&#x3D;0的地方事实上存取了A1,A2,A3三个键值对,它们通过next这个属性链接在一起。这就是桶。对于不同的元素，可能计算出了相同的函数值，这样就产生了“冲突”，这就需要解决冲突，“直接定址”与“解决冲突”是哈希表的两大特点。而HashMap中的链表主要为了解决哈希冲突而存在的，如果定位到的数组位置不含链表（当前entry的next指向null）,那么对于查找，添加等操作很快，仅需一次寻址即可；如果定位到的数组包含链表，对于添加操作，其时间复杂度为O(n)，首先遍历链表，存在即覆盖，否则新增；对于查找操作来讲，仍需遍历链表，然后通过key对象的equals方法逐一比对查找。对于性能的影响，HashMap中的链表出现越少越好。</p>
-<h1 id="负载因子与扩容"><a href="#负载因子与扩容" class="headerlink" title="负载因子与扩容"></a>负载因子与扩容</h1><figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs arduino"><span class="hljs-comment">//实际存储的key-value键值对的个数</span><br>transient <span class="hljs-type">int</span> size;<br><span class="hljs-comment">//阈值，当table == &#123;&#125;时，该值为初始容量（初始容量默认为16）；</span><br><span class="hljs-type">int</span> threshold;<br><span class="hljs-comment">//负载因子，代表了table的填充度有多少，默认是0.75</span><br><span class="hljs-keyword">final</span> <span class="hljs-type">float</span> loadFactor;<br></code></pre></td></tr></table></figure>
+                <h1 id="Java枚举"><a href="#Java枚举" class="headerlink" title="Java枚举"></a>Java枚举</h1><h5 id="Java枚举（Enumeration）是一种特殊的数据类型，用于定义一组固定的常量。枚举提供了一种更加简洁、安全和可读性强的方式来表示一组相关的常量。"><a href="#Java枚举（Enumeration）是一种特殊的数据类型，用于定义一组固定的常量。枚举提供了一种更加简洁、安全和可读性强的方式来表示一组相关的常量。" class="headerlink" title="Java枚举（Enumeration）是一种特殊的数据类型，用于定义一组固定的常量。枚举提供了一种更加简洁、安全和可读性强的方式来表示一组相关的常量。"></a>Java枚举（Enumeration）是一种特殊的数据类型，用于定义一组固定的常量。枚举提供了一种更加简洁、安全和可读性强的方式来表示一组相关的常量。</h5><figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs arduino"><span class="hljs-keyword">public</span> <span class="hljs-keyword">enum</span> <span class="hljs-title class_">Student</span> &#123;<br>    <span class="hljs-built_in">STUDENT_ONE</span>(<span class="hljs-string">&quot;Alice&quot;</span>, <span class="hljs-number">1</span>),<br>    <span class="hljs-built_in">STUDENT_TWO</span>(<span class="hljs-string">&quot;Bob&quot;</span>, <span class="hljs-number">2</span>),<br>    <span class="hljs-built_in">STUDENT_THREE</span>(<span class="hljs-string">&quot;Charlie&quot;</span>, <span class="hljs-number">3</span>);<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-type">String</span> name;<br>    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> code;<br><br>    <span class="hljs-built_in">Student</span>(<span class="hljs-type">String</span> name, <span class="hljs-type">int</span> code) &#123;<br>        <span class="hljs-keyword">this</span>.name = name;<br>        <span class="hljs-keyword">this</span>.code = code;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-type">String</span> <span class="hljs-title">getName</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> name;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title">getCode</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> code;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-type">static</span> <span class="hljs-type">String</span> <span class="hljs-title">getNameByCode</span><span class="hljs-params">(<span class="hljs-type">int</span> code)</span> </span>&#123;<br>        <span class="hljs-keyword">for</span> (Student student : Student.<span class="hljs-built_in">values</span>()) &#123;<br>            <span class="hljs-keyword">if</span> (student.<span class="hljs-built_in">getCode</span>() == code) &#123;<br>                <span class="hljs-keyword">return</span> student.<span class="hljs-built_in">getName</span>();<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> null; <span class="hljs-comment">// or throw an exception indicating the code is not found</span><br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-type">static</span> <span class="hljs-type">int</span> <span class="hljs-title">getCodeByName</span><span class="hljs-params">(<span class="hljs-type">String</span> name)</span> </span>&#123;<br>        <span class="hljs-type">String</span> trimmedName = name.<span class="hljs-built_in">trim</span>(); <span class="hljs-comment">// Remove leading and trailing spaces</span><br>        <span class="hljs-keyword">for</span> (Student student : Student.<span class="hljs-built_in">values</span>()) &#123;<br>            <span class="hljs-keyword">if</span> (student.<span class="hljs-built_in">getName</span>().<span class="hljs-built_in">equals</span>(trimmedName)) &#123;<br>                <span class="hljs-keyword">return</span> student.<span class="hljs-built_in">getCode</span>();<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>; <span class="hljs-comment">// or throw an exception indicating the name is not found</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<p>默认容量：HashMap中数组的长度如果不指定，则默认为16 2的n次幂：HashMap在new的时候可以指定数组长度，但不管如何指定，实际长度一定是2的n次幂（16、32、64、128等），举几个例子，指定长度为17或29，实际长度为32，指定为35、57或63，实际长度为64，以此类推。 扩容：随着散列表存储节点的不断增加，散列表中数组的长度也应该增加，为了保证2的n次幂特性，每次扩容都是当前长度*2， 扩容的方法是，新建一个两倍的数组，然后遍历散列表中的所有节点，重新计算下标放入新数组。 负载因子：由于散列存储下标具有不确定性，在数组即将被占满的时候，后续添加会发生大量冲突，为了避免，需要使数组在即将被占满前就扩容，而不是等待数组被占满。负载因子决定具体何时扩容。其默认值是0.75，可以在调用构造器的时候指定。0.75的意思是，在调用put方法时，算上被put的节点，如果当前数组被占用达到75%则进行扩容。在JDK 1.8进行了优化，红黑树的引入被用于替换链表，上文说到，如果冲突过多，会导致链表过长，降低查询性能，均匀的hash函数能有效的缓解冲突过多，但是并不能完全避免。所以在往链表后追加节点时，如果发现链表长度达到8，就会将链表转为红黑树。</p>
-<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs arcade">final V putVal(int <span class="hljs-built_in">hash</span>, K key, V value, <span class="hljs-built_in">boolean</span> onlyIfAbsent,<br>                   <span class="hljs-built_in">boolean</span> evict) &#123;<br>        Node&lt;K,V&gt;[] <span class="hljs-literal">tab</span>; Node&lt;K,V&gt; p; int n, i;<br>        <span class="hljs-keyword">if</span> ((<span class="hljs-literal">tab</span> = table) == <span class="hljs-literal">null</span> || (n = <span class="hljs-literal">tab</span>.<span class="hljs-built_in">length</span>) == <span class="hljs-number">0</span>)<br>            n = (<span class="hljs-literal">tab</span> = <span class="hljs-built_in">resize</span>()).<span class="hljs-built_in">length</span>;<br>        <span class="hljs-keyword">if</span> ((p = <span class="hljs-literal">tab</span>[i = (n - <span class="hljs-number">1</span>) &amp; <span class="hljs-built_in">hash</span>]) == <span class="hljs-literal">null</span>)<br>            <span class="hljs-literal">tab</span>[i] = newNode(<span class="hljs-built_in">hash</span>, key, value, <span class="hljs-literal">null</span>);<br>        <span class="hljs-keyword">else</span> &#123;<br>            Node&lt;K,V&gt; e; K k;<br>            <span class="hljs-keyword">if</span> (p.<span class="hljs-built_in">hash</span> == <span class="hljs-built_in">hash</span> &amp;&amp;<br>                ((k = p.key) == key || (key != <span class="hljs-literal">null</span> &amp;&amp; key.<span class="hljs-built_in">equals</span>(k))))<br>                e = p;<br>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (p instanceof TreeNode)<br>                e = ((TreeNode&lt;K,V&gt;)p).putTreeVal(this, <span class="hljs-literal">tab</span>, <span class="hljs-built_in">hash</span>, key, value);<br>            <span class="hljs-keyword">else</span> &#123;<br>                <span class="hljs-keyword">for</span> (int binCount = <span class="hljs-number">0</span>; ; ++binCount) &#123;<br>                    <span class="hljs-keyword">if</span> ((e = p.next) == <span class="hljs-literal">null</span>) &#123;<br>                        p.next = newNode(<span class="hljs-built_in">hash</span>, key, value, <span class="hljs-literal">null</span>);<br>                        <span class="hljs-keyword">if</span> (binCount &gt;= TREEIFY_THRESHOLD - <span class="hljs-number">1</span>) <span class="hljs-comment">// -1 for 1st</span><br>                            treeifyBin(<span class="hljs-literal">tab</span>, <span class="hljs-built_in">hash</span>);<br>                        <span class="hljs-keyword">break</span>;<br>                    &#125;<br>                    <span class="hljs-keyword">if</span> (e.<span class="hljs-built_in">hash</span> == <span class="hljs-built_in">hash</span> &amp;&amp;<br>                        ((k = e.key) == key || (key != <span class="hljs-literal">null</span> &amp;&amp; key.<span class="hljs-built_in">equals</span>(k))))<br>                        <span class="hljs-keyword">break</span>;<br>                    p = e;<br>                &#125;<br>            &#125;<br>            <span class="hljs-keyword">if</span> (e != <span class="hljs-literal">null</span>) &#123; <span class="hljs-comment">// existing mapping for key</span><br>                V oldValue = e.value;<br>                <span class="hljs-keyword">if</span> (!onlyIfAbsent || oldValue == <span class="hljs-literal">null</span>)<br>                    e.value = value;<br>                afterNodeAccess(e);<br>                <span class="hljs-keyword">return</span> oldValue;<br>            &#125;<br>        &#125;<br>        ++modCount;<br>        <span class="hljs-keyword">if</span> (++size &gt; threshold)<br>            <span class="hljs-built_in">resize</span>();<br>        afterNodeInsertion(evict);<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;<br>    &#125;<br></code></pre></td></tr></table></figure>
+<p>在上述示例中，我们定义了一个枚举类型<code>Student</code>，其中包含了学生常量<code>STUDENT_ONE</code>、<code>STUDENT_TWO</code>和<code>STUDENT_THREE</code>。每个常量都有一个<code>name</code>和一个<code>code</code>，分别表示学生的姓名和代码。</p>
+<p>通过<code>getName()</code>和<code>getCode()</code>方法，我们可以获取每个学生常量的姓名和代码。</p>
+<p>在<code>getCodeByName()</code>方法中，我们先使用<code>name.trim()</code>去除传入的<code>name</code>参数的前导空格和尾部空格，然后与枚举中的姓名进行比较。这样可以确保在查找匹配时忽略传入的<code>name</code>参数中的空格。</p>
+<p>使用示例：</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><span class="hljs-built_in">public</span> <span class="hljs-keyword">class</span> Main &#123;<br>    <span class="hljs-built_in">public</span> static <span class="hljs-type">void</span> main(String[] args) &#123;<br>        String <span class="hljs-type">name</span> = Student.getNameByCode(<span class="hljs-number">2</span>);<br>        <span class="hljs-keyword">System</span>.<span class="hljs-keyword">out</span>.println(&quot;Name for code 2: &quot; + <span class="hljs-type">name</span>);<br>        <span class="hljs-type">int</span> code = Student.getCodeByName(&quot; Charlie &quot;);<br>        <span class="hljs-keyword">System</span>.<span class="hljs-keyword">out</span>.println(&quot;Code for name &#x27; Charlie &#x27;: &quot; + code);<br>    &#125;<br>&#125;<br>输出结果：<br><span class="hljs-type">Name</span> <span class="hljs-keyword">for</span> code <span class="hljs-number">2</span>: Bob<br>Code <span class="hljs-keyword">for</span> <span class="hljs-type">name</span> <span class="hljs-string">&#x27; Charlie &#x27;</span>: <span class="hljs-number">3</span><br></code></pre></td></tr></table></figure>
 
 
                 
@@ -363,7 +359,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/Java/" class="category-chain-item">Java</a>
+  <a href="/categories/Java%E6%9E%9A%E4%B8%BE/" class="category-chain-item">Java枚举</a>
   
   
 
@@ -378,7 +374,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/HashMap/" class="print-no-link">#HashMap</a>
+        <a href="/tags/Java%E6%9E%9A%E4%B8%BE/" class="print-no-link">#Java枚举</a>
       
     </div>
   
@@ -387,7 +383,7 @@
 
                  <p class="note note-warning">
 <strong>本文作者:  </strong>Xu Yuhuan <br>
-<strong>本文链接: </strong><a href="https://xuyuhuan.com/article/3d614825/">https://xuyuhuan.com/article/3d614825/</a> <br>
+<strong>本文链接: </strong><a href="https://xuyuhuan.com/article/b40c17d7/">https://xuyuhuan.com/article/b40c17d7/</a> <br>
 <strong>版权声明: </strong>转载本博客的文章请注明原始出处和作者,谢谢。
    </p>
    
@@ -397,9 +393,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/article/b40c17d7/" title="Java枚举">
+                      <a href="/article/6db70910/" title="羽毛球比赛规则">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Java枚举</span>
+                        <span class="hidden-mobile">羽毛球比赛规则</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -407,8 +403,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/article/67c58cdf/" title="Java快速创建List常用几种方式">
-                        <span class="hidden-mobile">Java快速创建List常用几种方式</span>
+                      <a href="/article/3d614825/" title="HashMap">
+                        <span class="hidden-mobile">HashMap</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
